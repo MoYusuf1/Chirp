@@ -5,7 +5,10 @@ import { User } from "@clerk/nextjs/dist/api";
 
 
  const filterUserforClient = (user: User) => {
-  return {id: user.id, username:user.username, profilePicture: user.profileImageUrl}
+  return {
+    id: user.id, 
+    username:user.username, 
+    profilePicture: user.profileImageUrl}
  }
 
 export const postsRouter = createTRPCRouter({

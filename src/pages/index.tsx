@@ -60,7 +60,9 @@ const Home: NextPage = () => {
 
           <div className="flex flex-col">
             {/*This "loops" through each element in the schema file for posts and does a certain cosmetic action*/}
-            {[...data, ...data]?.map((post, author) => (
+
+
+            {[...data, ...data]?.map(({post, author}) => (
               <div key={post.id} className="border-b border-slate-400 p-8">
                 {post.content}
               </div>
