@@ -8,7 +8,6 @@ import { api } from "~/utils/api";
 const CreatePostWizard = () => {
   const { user } = useUser();
 
-  console.log(user)
 
   if (!user) return null;
 
@@ -61,10 +60,9 @@ const Home: NextPage = () => {
 
           <div className="flex flex-col">
             {/*This "loops" through each element in the schema file for posts and does a certain cosmetic action*/}
-            {data?.map((post) => (
+            {[...data, ...data]?.map((post, author) => (
               <div key={post.id} className="border-b border-slate-400 p-8">
-                {" "}
-                {post.content}{" "}
+                {post.content}
               </div>
             ))}
           </div>
