@@ -3,7 +3,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import { api } from "~/utils/api";
+import { RouterOutputs, api } from "~/utils/api";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -23,6 +23,24 @@ const CreatePostWizard = () => {
     </div>
   );
 };
+
+
+
+type PostwithUser = RouterOutputs["posts"]["getAll"][number];
+
+const PostView = (props:  PostwithUser)=> {
+ 
+  const {post, author} = props;
+  
+  return (
+    <div key={post.id} className="border-b border-slate-400 p-8">
+      <img src={author.profilePicture} />
+    {post.content}
+  </div>
+  );
+
+}
+
 
 const Home: NextPage = () => {
   const user = useUser();
@@ -56,16 +74,14 @@ const Home: NextPage = () => {
 
             {/* When signed in, preform the CreatePostWizard*/}
             {user.isSignedIn && <CreatePostWizard />}
-          </div>
+          </div> 
 
           <div className="flex flex-col">
             {/*This "loops" through each element in the schema file for posts and does a certain cosmetic action*/}
 
 
-            {[...data, ...data]?.map(({post, author}) => (
-              <div key={post.id} className="border-b border-slate-400 p-8">
-                {post.content}
-              </div>
+            {[...data, ...data]?.map((fullPost) => (
+              <PostView {...fullPost} key={fullPost.post.id}/>
             ))}
           </div>
         </div>
@@ -77,3 +93,4 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+ 
